@@ -9,7 +9,7 @@ struct node
     int number;
     struct node *next;
 };
-
+typedef struct node Node;
 struct node *start=NULL;
 
 struct node *getnode()
@@ -18,19 +18,20 @@ struct node *getnode()
 } 
 
 
-
 void display(struct node *start)
 {
     struct node *temp;
     temp=start;
-    int i=1;
+    if(temp==NULL){
+    	printf("No data in directory!\n");
+    	return;
+	}
     while(temp!=NULL)
     {
-        printf("%d. %s\t",i, temp->firstname);
-        printf("%s\t",temp->lastname);
+        printf("%s ",temp->firstname);
+        printf("%s ",temp->lastname);
         printf("%d\n",temp->number);
         temp=temp->next;
-        i++;
     }
 }
 /*void sort()
@@ -106,21 +107,23 @@ struct node *create()
 void search()
 {
     struct node *temp;
-    char name[20];
-    char f[20];
+    char f[20],l[20];
+    if(temp==NULL){
+    	printf("No data in directory!\n");
+    	return;
+	}
     temp=start;
     printf("Enter name to be searched:\n");
     scanf("%s",&f);
-//    scanf("%s",&l);
-	
+    scanf("%s",&l);
 while(temp!=NULL){
        
-   if(strcmp(f,temp->firstname)==0){
+   if(strcmp(temp->firstname,f)==0 && strcmp(temp->lastname,l)==0){
    
-    printf("%s\n",temp->firstname);
-    printf("%s\n",temp->lastname);
+    printf("%s ",temp->firstname);
+    printf("%s ",temp->lastname);
     printf("%d\n",temp->number);
-    return;
+    break;
 	}
     temp=temp->next;
 }
@@ -128,40 +131,40 @@ printf("Data not found");
 }
 void del()
 {
-    struct node *pretemp,*temp;
-    char *f,*l;
+    Node *pretemp,*temp;
+	char f[20],l[20];
+    printf("Enter full name :");
+    scanf("%s%s",&f),&l;
     temp=start;
-    pretemp=start->next;
-    printf("Enter name :");
-    scanf("%s",&f);
-    scanf("%s",&l);
+	pretemp=temp;
     while(temp!=NULL)
     {
-        if((pretemp->firstname==f)&&(pretemp->lastname==l))
+        if(strcmp(temp->firstname,f)==0 && strcmp(temp->lastname,l)==0)
         {
-            printf("%s ",temp->firstname);
+            printf("The data: ");
+			printf("%s ",temp->firstname);
             printf("%s ",temp->lastname);
             printf("%d ",temp->number);
-            temp->next=pretemp->next;
-            free(pretemp);
-            break;
+            printf("is deleted\n");
+            pretemp->next=temp->next;
+            free(temp);
+            return;
         }
-        else 
-        {
-            temp=temp->next;
-            pretemp=pretemp->next;
-        }
-        
-        
+       
+        pretemp=temp;
+        temp=temp->next;
     }
+    printf("Data not found!");
 }
 
 int main()
 {
     int op,ch;
     do{
-        printf("-------Welcome--------\n ");
+         system("CLS");
+		printf("-------Welcome--------\n ");
         printf("1.Create\n2.Insert\n3.Display\n4.Delete\n5.Search\n6.Sort\n");
+       
         printf("Enter your choice:");
         scanf("%d",&ch);
         switch(ch)
