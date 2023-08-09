@@ -10,17 +10,17 @@ struct node
     struct node *next;
 };
 typedef struct node Node;
-struct node *start=NULL;
+Node *start=NULL;
 
-struct node *getnode()
+Node *getnode()
 {
-    return((struct node *)malloc(sizeof(struct node)));
+    return((Node *)malloc(sizeof(Node)));
 } 
 
 
-void display(struct node *start)
+void display(Node *start)
 {
-    struct node *temp;
+    Node *temp;
     temp=start;
     if(temp==NULL){
     	printf("No data in directory!\n");
@@ -34,38 +34,9 @@ void display(struct node *start)
         temp=temp->next;
     }
 }
-/*void sort()
-{
-    struct node *temp,*pretemp;
-    char *p;
-    temp=start;
-    pretemp=start->next;
-    while(pretemp!=NULL)
-    {
-    if(strcmp(temp->lastname,pretemp->lastname)>0)
-    {
-        if(temp->lastname==pretemp->lastname)
-        {
-            if(strcmp(temp->firstname,pretemp->firstname)>0)
-            {
-                p=temp->firstname;
-                temp->firstname=pretemp->firstname;
-                pretemp->firstname=p;   
-            }
-        }
-        else
-        {
-                p=temp->lastname;
-                temp->lastname=pretemp->firstname;
-                pretemp->firstname=p;
-        }
-    }
-    }
-}
-*/
 void insert()
 {
-    struct node *temp,*nn;
+    Node *temp,*nn;
     nn=getnode();
     temp=start;
     while(temp->next!=NULL)
@@ -84,9 +55,9 @@ void insert()
     display(start);
 }
 
-struct node *create()
+Node create()
 {
-    struct node *temp,*nn;
+    Node *temp,*nn;
     if(start!=NULL)
         insert();
     else
@@ -106,7 +77,7 @@ struct node *create()
 }
 void search()
 {
-    struct node *temp;
+    Node *temp;
     char f[20],l[20];
     if(temp==NULL){
     	printf("No data in directory!\n");
@@ -134,9 +105,9 @@ void del()
     Node *pretemp,*temp;
 	char f[20],l[20];
     printf("Enter full name :");
-    scanf("%s%s",&f),&l;
+    scanf("%s%s",&f,&l);
     temp=start;
-	pretemp=temp;
+	pretemp=start;
     while(temp!=NULL)
     {
         if(strcmp(temp->firstname,f)==0 && strcmp(temp->lastname,l)==0)
@@ -159,8 +130,9 @@ void del()
 
 int main()
 {
-    int op,ch;
-    do{
+    int ch;
+    int op;
+    do {
          system("CLS");
 		printf("-------Welcome--------\n ");
         printf("1.Create\n2.Insert\n3.Display\n4.Delete\n5.Search\n6.Sort\n");
@@ -179,11 +151,11 @@ int main()
             break;
             case 5:search();
             break;
-            /*case 6:sort();
-            break;*/
         }
-        printf("Do you want to quit ? 1 for no / 0 for yes:");
-        scanf("%d",&op);
-    }while(op!=0);
+        
+        printf("Do you want to quit ? 0 for yes / 1 for no:");
+        scanf("%d", &op);
+           
+        } while (op != 0);
 return 0;
 }
