@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<conio.h>
 #include<string.h>
 #include<stdlib.h>
 
@@ -24,6 +25,7 @@ void display(Node *start)
     temp=start;
     if(temp==NULL){
     	printf("No data in directory!\n");
+    	getch();
     	return;
 	}
     while(temp!=NULL)
@@ -33,6 +35,7 @@ void display(Node *start)
         printf("%d\n",temp->number);
         temp=temp->next;
     }
+    getch();
 }
 void insert()
 {
@@ -53,6 +56,7 @@ void insert()
     temp->next=nn;
     nn->next=NULL;
     display(start);
+    
 }
 
 Node create()
@@ -94,11 +98,13 @@ while(temp!=NULL){
     printf("%s ",temp->firstname);
     printf("%s ",temp->lastname);
     printf("%d\n",temp->number);
+    getch();
     break;
 	}
     temp=temp->next;
 }
 printf("Data not found");
+getch();
 }
 void del()
 {
@@ -119,6 +125,7 @@ void del()
             printf("is deleted\n");
             pretemp->next=temp->next;
             free(temp);
+            getch();
             return;
         }
        
@@ -126,6 +133,7 @@ void del()
         temp=temp->next;
     }
     printf("Data not found!");
+    getch();
 }
 
 void swap(char a[20], char b[20]) {
@@ -140,23 +148,32 @@ void sort()
     struct node* temp, * pretemp;
     char p[20];
     temp = start;
-    pretemp = start->next;
-    while (pretemp != NULL)
+  
+    while (temp != NULL)
     {
+    	pretemp = temp->next;
+    	while(pretemp!=NULL){
+		
         if (strcmp(temp->firstname, pretemp->firstname) > 0) {
             swap(temp->firstname, pretemp->firstname);
             swap(temp->lastname, pretemp->lastname);
+            
         }
         else if (strcmp(temp->firstname, pretemp->firstname) == 0) {
             if (strcmp(temp->lastname, pretemp->lastname) > 0) {
                 swap(temp->lastname, pretemp->lastname);
+                
             }
         }
 
-        temp = temp->next;
+        
         pretemp = pretemp->next;
     }
+    temp=temp->next;
+    }
+    getch();
 }
+
 
 int main()
 {
@@ -165,7 +182,7 @@ int main()
     do {
          system("CLS");
 		printf("-------Welcome--------\n ");
-        printf("1.Create\n2.Insert\n3.Display\n4.Delete\n5.Search\n6.Sort\n");
+        printf("1.Create\n2.Insert\n3.Display\n4.Delete\n5.Search\n6.Sort\n7.Exit\n");
        
         printf("Enter your choice:");
         scanf("%d",&ch);
@@ -182,13 +199,12 @@ int main()
             case 5:search();
             break;
             case 6:
-                sort();
-                break;
+            	sort();
+            case 7:
+            	printf("Exiting");
         }
-        
-        printf("Do you want to quit ? 0 for yes / 1 for no:");
-        scanf("%d", &op);
+    
            
-        } while (op != 0);
+        } while (ch!=7);
 return 0;
 }
