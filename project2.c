@@ -128,6 +128,36 @@ void del()
     printf("Data not found!");
 }
 
+void swap(char a[20], char b[20]) {
+    char temp[20];
+    strcpy(temp, a);
+    strcpy(a, b);
+    strcpy(b, temp);
+}
+
+void sort()
+{
+    struct node* temp, * pretemp;
+    char p[20];
+    temp = start;
+    pretemp = start->next;
+    while (pretemp != NULL)
+    {
+        if (strcmp(temp->firstname, pretemp->firstname) > 0) {
+            swap(temp->firstname, pretemp->firstname);
+            swap(temp->lastname, pretemp->lastname);
+        }
+        else if (strcmp(temp->firstname, pretemp->firstname) == 0) {
+            if (strcmp(temp->lastname, pretemp->lastname) > 0) {
+                swap(temp->lastname, pretemp->lastname);
+            }
+        }
+
+        temp = temp->next;
+        pretemp = pretemp->next;
+    }
+}
+
 int main()
 {
     int ch;
@@ -151,6 +181,9 @@ int main()
             break;
             case 5:search();
             break;
+            case 6:
+                sort();
+                break;
         }
         
         printf("Do you want to quit ? 0 for yes / 1 for no:");
